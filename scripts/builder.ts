@@ -75,7 +75,7 @@ function getEvents(startYear: number): CalEvent[] {
 
 async function getCalendar() {
   // read from calendar.json
-  const data = await Deno.readTextFile("calendar.json");
+  const data = await Deno.readTextFile("../calendar.json");
   return JSON.parse(data) as Calendar;
 }
 
@@ -89,7 +89,7 @@ async function main() {
   const events = getEvents(parseInt(startYear));
   const year = `${startYear}-${parseInt(startYear) + 1}`;
   cal[year] = { blocks, events };
-  await Deno.writeTextFile("calendar.json", JSON.stringify(cal, null, 2));
+  await Deno.writeTextFile("../calendar.json", JSON.stringify(cal, null, 2));
 }
 
 await main();
