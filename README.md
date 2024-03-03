@@ -25,11 +25,11 @@ This project is licensed under Unlicense. See the LICENSE file for more details.
 
 ## Credits
 
-This project was originally created by [totallynotmark6].
+This project was originally created by [itsactuallyluna9].
 
 All data is from [Cornell College], particulary their
 [Academic (or block) Calendar].
 
-[totallynotmark6]: https://github.com/totallynotmark6
+[itsactuallyluna9]: https://github.com/itsactuallyluna9
 [Cornell College]: https://www.cornellcollege.edu/
 [Academic (or block) Calendar]: https://www.cornellcollege.edu/registrar/calendars/index.shtml
