@@ -1,38 +1,30 @@
-import {
-  assertEquals,
-  assertExists,
-  assertInstanceOf,
-  assertNotEquals,
-} from "https://deno.land/std@0.178.0/testing/asserts.ts";
+import { test, expect } from "bun:test";
 import loadCalendar from "../src/calendar.ts";
 
-Deno.test("calendar data can load", () => {
+test("calendar data can load", () => {
   const calendar = loadCalendar();
-  assertExists(calendar);
+  expect(calendar).toBeObject();
 });
 
-Deno.test("calendar data is valid", () => {
+test("calendar data is valid", () => {
   const calendar = loadCalendar();
   const invalidDate = new Date(null!);
   for (const year in calendar) {
     const year_data = calendar[year];
-    assertEquals(year_data.blocks.length >= 8, true);
+    expect(year_data.blocks.length).toBeGreaterThanOrEqual(8);
     for (const block of year_data.blocks) {
-      assertEquals(typeof block.block, "number");
-      assertEquals(block.block >= 1, true);
-
-      assertInstanceOf(block.start, Date);
-      assertInstanceOf(block.end, Date);
-
-      assertNotEquals(block.start, invalidDate);
-      assertNotEquals(block.end, invalidDate);
+      expect(block.block).toBeNumber();
+      expect(block.start).toBeInstanceOf(Date);
+      expect(block.end).toBeInstanceOf(Date);
+      expect(block.start).not.toEqual(invalidDate);
+      expect(block.end).not.toEqual(invalidDate);
     }
     for (const event of year_data.events) {
-      assertInstanceOf(event.start, Date);
-      assertInstanceOf(event.end, Date);
-
-      assertNotEquals(event.start, invalidDate);
-      assertNotEquals(event.end, invalidDate);
+      expect(event.name).toBeString();
+      expect(event.start).toBeInstanceOf(Date);
+      expect(event.end).toBeInstanceOf(Date);
+      expect(event.start).not.toEqual(invalidDate);
+      expect(event.end).not.toEqual(invalidDate);
     }
   }
 });

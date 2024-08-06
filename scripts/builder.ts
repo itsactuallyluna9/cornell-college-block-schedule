@@ -1,5 +1,4 @@
 // A simple script to format the calendar.json file! (assuming you manually input the dates)
-// Run with `deno run --allow-read --allow-write builder.ts`
 
 type Block = {
   block: number;
@@ -25,15 +24,14 @@ type Calendar = {
 
 function getBlocks(startYear: number): Block[] {
   const blocks: Block[] = [];
-  const totalBlocks = 9;
+  const totalBlocks = 8;
   let block = 1;
 
   for (let i = 0; i < totalBlocks; i++) {
     console.log(`Block ${block}`);
     const startAns = prompt("Start date:") + ` ${startYear} 9:00 AM`;
     const start = new Date(startAns);
-    const endTime = (block === 4 || block === 6) ? "12:00 PM" : "3:00 PM";
-    const endAns = prompt("End date:") + ` ${startYear} ${endTime}`;
+    const endAns = prompt("End date:") + ` ${startYear} 12:00 PM`;
     const end = new Date(endAns);
     blocks.push({ block, start, end });
     block++;
@@ -75,8 +73,7 @@ function getEvents(startYear: number): CalEvent[] {
 
 async function getCalendar() {
   // read from calendar.json
-  const data = await Deno.readTextFile("../calendar.json");
-  return JSON.parse(data) as Calendar;
+  return (await Bun.file("../calendar.json").json()) as Calendar;
 }
 
 async function main() {
@@ -89,7 +86,7 @@ async function main() {
   const events = getEvents(parseInt(startYear));
   const year = `${startYear}-${parseInt(startYear) + 1}`;
   cal[year] = { blocks, events };
-  await Deno.writeTextFile("../calendar.json", JSON.stringify(cal, null, 2));
+  await Bun.write("../calendar.json", JSON.stringify(cal, null, 2));
 }
 
 await main();

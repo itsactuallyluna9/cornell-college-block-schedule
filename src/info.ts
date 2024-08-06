@@ -1,6 +1,23 @@
 import loadCalendar from "./calendar.ts";
 
-export function calendarData(for_date: Date) {
+export type CalendarData = {
+  is_weekend: boolean;
+  block: {
+    block: number;
+    start: Date;
+    end: Date;
+  } | null;
+  day: number | null;
+  week: number | null;
+  event: {
+    name: string;
+    start: Date;
+    end: Date;
+  } | null;
+  school_year?: string;
+};
+
+export function calendarData(for_date: Date): CalendarData {
   const calendar = loadCalendar();
   const school_year = Object.keys(calendar).find((year) => {
     const year_data = calendar[year];
@@ -18,6 +35,17 @@ export function calendarData(for_date: Date) {
   const event = year_data.events.find((event) => {
     return for_date >= event.start && for_date <= event.end;
   });
+
+  if (block && event) {
+    return {
+      is_weekend: for_date.getDay() === 0 || for_date.getDay() === 6,
+      block,
+      day: null,
+      week: null,
+      event,
+      school_year,
+    };
+  }
 
   if (!block && event) {
     return {
@@ -38,7 +66,6 @@ export function calendarData(for_date: Date) {
         return current;
       }
       return prev;
-      // deno-lint-ignore no-explicit-any
     }, [] as any);
     if (!last_block) {
       throw new Error("Calendar data not found for date!");
@@ -109,7 +136,10 @@ export function calendarData(for_date: Date) {
   let week = 0;
   const current_date = new Date(block.start);
   while (current_date <= for_date) {
-    if (current_date.getDay() !== 0 && current_date.getDay() !== 6) {
+    const event = year_data.events.find((event) => {
+      return current_date >= event.start && current_date < event.end;
+    })
+    if (current_date.getDay() !== 0 && current_date.getDay() !== 6 && !event) {
       day++;
       // if (day % 5 === 0) {
       // 	week++
@@ -156,7 +186,7 @@ export function calendarData(for_date: Date) {
       block,
       day,
       week,
-      event: event ? event : null,
+      event: null,
       school_year,
     };
   }

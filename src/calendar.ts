@@ -1,9 +1,7 @@
-import { Calendar } from "./types.ts";
-import data from "../calendar.json" assert { type: "json" };
+import type { Calendar } from "./types.ts";
+import data from "../calendar.json";
 
 export default function loadCalendar() {
-  // const data = await Deno.readTextFile("calendar.json")
-  // const calendar = JSON.parse(data) as Calendar
   const calendar = data as unknown as Calendar;
   // Convert dates to Date objects
   for (const year in calendar) {

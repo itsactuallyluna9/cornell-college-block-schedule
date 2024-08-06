@@ -1,41 +1,38 @@
-import { assertSnapshot } from "https://deno.land/std@0.178.0/testing/snapshot.ts";
+import { test, expect } from "bun:test";
 import { calendarData } from "../src/info.ts";
 
-Deno.test("handles pure summer break", (t) => {
+test("handles pure summer break", () => {
   const date_to_check = new Date("June 1, 2023 9:00");
   const data = calendarData(date_to_check);
-  assertSnapshot(t, data);
+  expect(data).toMatchSnapshot();
 });
 
-Deno.test("handles not pure summer break", (t) => {
+test("handles not pure summer break", () => {
   const date_to_check = new Date("June 25, 2023 9:00");
   const data = calendarData(date_to_check);
-  assertSnapshot(t, data);
+  expect(data).toMatchSnapshot();
 });
 
-Deno.test("handles block breaks", (t) => {
+test("handles block breaks", () => {
   const date_to_check = new Date("Feb 10, 2023 9:00");
   const data = calendarData(date_to_check);
-  assertSnapshot(t, data);
+  expect(data).toMatchSnapshot();
 });
 
-Deno.test("handles actual blocks", (t) => {
+test("handles actual blocks", () => {
   const date_to_check = new Date("Mar 3, 2023 9:00");
   const data = calendarData(date_to_check);
-  assertSnapshot(t, data);
+  expect(data).toMatchSnapshot();
 });
 
-// DOES NOT WORK FOR NOW
-// I gotta redo some logic :(
+test("handles breaks in blocks", () => {
+  const date_to_check = new Date("Nov 25, 2024 9:00");
+  const data = calendarData(date_to_check);
+  expect(data).toMatchSnapshot();
+});
 
-// Deno.test("handles breaks in blocks", (t) => {
-//     const date_to_check = new Date("Nov 25, 2024 9:00")
-//     const data = calendarData(date_to_check)
-//     assertSnapshot(t, data)
-// })
-
-// Deno.test("handles breaks in blocks on return", (t) => {
-//     const date_to_check = new Date("Dec 2, 2024 9:00")
-//     const data = calendarData(date_to_check)
-//     assertSnapshot(t, data)
-// })
+test("handles breaks in blocks on return", () => {
+  const date_to_check = new Date("Dec 2, 2024 9:00");
+  const data = calendarData(date_to_check);
+  expect(data).toMatchSnapshot();
+});
