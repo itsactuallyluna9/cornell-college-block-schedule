@@ -1,11 +1,14 @@
 {
   "name": "cornell-college-block-schedule",
-  "type": "module",
   "devDependencies": {
-    "@types/bun": "latest",
+    "@types/bun": "^1.1.8",
     "prettier": "^3.3.3"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.5.4"
+  },
+  "type": "module",
+  "dependencies": {
+    "ical-generator": "^8.0.0"
   }
 }

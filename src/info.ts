@@ -138,7 +138,7 @@ export function calendarData(for_date: Date): CalendarData {
   while (current_date <= for_date) {
     const event = year_data.events.find((event) => {
       return current_date >= event.start && current_date < event.end;
-    })
+    });
     if (current_date.getDay() !== 0 && current_date.getDay() !== 6 && !event) {
       day++;
       // if (day % 5 === 0) {
