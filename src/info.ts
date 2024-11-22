@@ -1,4 +1,4 @@
-import loadCalendar from "./calendar.ts";
+import { loadCalendar } from "./calendar.ts";
 
 export type CalendarData = {
   is_weekend: boolean;

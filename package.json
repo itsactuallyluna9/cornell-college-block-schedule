@@ -2,15 +2,31 @@
   "name": "cornell-college-block-schedule",
   "version": "2024.9.1",
   "main": "src/mod.ts",
+  "scripts": {
+    "prepublishOnly": "bun run compile",
+    "test": "bun test",
+    "compile": "bun run clean && bun build . --outdir=dist && bun run compile:declaration",
+    "compile:declaration": "tsc --project tsconfig.types.json",
+    "clean": "rm -rf dist"
+  },
   "devDependencies": {
     "@types/bun": "^1.1.8",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "ical-generator": "^8.0.0"
   },
   "peerDependencies": {
     "typescript": "^5.5.4"
   },
   "type": "module",
-  "dependencies": {
-    "ical-generator": "^8.0.0"
+  "dependencies": {},
+  "files": [
+    "calendar.json",
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/src/mod.js",
+      "types": "./dist/types/src/mod.d.ts"
+    }
   }
 }

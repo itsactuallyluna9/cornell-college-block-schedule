@@ -1,4 +1,4 @@
-import loadCalendar from "../src/calendar";
+import { loadCalendar } from "..";
 import ical from "ical-generator";
 
 async function main() {
