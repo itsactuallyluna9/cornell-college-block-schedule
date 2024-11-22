@@ -1,5 +1,5 @@
 import { test, expect } from "bun:test";
-import loadCalendar from "../src/calendar.ts";
+import { loadCalendar } from "../src/calendar.ts";
 
 test("calendar data can load", () => {
   const calendar = loadCalendar();
