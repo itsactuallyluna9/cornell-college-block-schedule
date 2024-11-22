@@ -26,7 +26,7 @@ test("handles actual blocks", () => {
 });
 
 test("handles breaks in blocks", () => {
-  const date_to_check = new Date("Nov 25, 2024 9:00");
+  const date_to_check = new Date("Nov 26, 2024 9:00");
   const data = calendarData(date_to_check);
   expect(data).toMatchSnapshot();
 });
@@ -35,4 +35,19 @@ test("handles breaks in blocks on return", () => {
   const date_to_check = new Date("Dec 2, 2024 9:00");
   const data = calendarData(date_to_check);
   expect(data).toMatchSnapshot();
+});
+
+test("handles pure breaks", () => {
+  const date_to_check = new Date("Dec 25, 2023 9:00");
+  const data = calendarData(date_to_check);
+  expect(data).toMatchSnapshot();
+});
+
+test("throws on invalid school year", () => {
+  expect(() => {
+    calendarData(new Date("Jan 1, 1900 9:00"));
+  }).toThrowError("Calendar data not found for date!");
+  expect(() => {
+    calendarData(new Date("Jan 1, 3000 9:00"));
+  }).toThrowError("Calendar data not found for date!");
 });
