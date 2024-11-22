@@ -1,7 +1,11 @@
 {
-  "name": "cornell-college-block-schedule",
-  "version": "2024.9.1",
+  "name": "@itsactuallyluna9/cornell-college-block-schedule",
+  "version": "2024.11.21",
   "main": "src/mod.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsactuallyluna9/cornell-college-block-schedule.git"
+  },
   "scripts": {
     "prepublishOnly": "bun run compile",
     "test": "bun test",
