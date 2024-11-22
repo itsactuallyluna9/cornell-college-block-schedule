@@ -32,9 +32,13 @@ test("handles breaks in blocks", () => {
 });
 
 test("handles breaks in blocks on return", () => {
-  const date_to_check = new Date("Dec 2, 2024 9:00");
+  const date_to_check = new Date("Dec 2, 2024 8:00");
   const data = calendarData(date_to_check);
   expect(data).toMatchSnapshot();
+
+  const date_to_check_weekend = new Date("Dec 8, 2024 9:00");
+  const data_weekend = calendarData(date_to_check_weekend);
+  expect(data_weekend).toMatchSnapshot();
 });
 
 test("handles pure breaks", () => {
@@ -50,4 +54,10 @@ test("throws on invalid school year", () => {
   expect(() => {
     calendarData(new Date("Jan 1, 3000 9:00"));
   }).toThrowError("Calendar data not found for date!");
+});
+
+test("handles weekends", () => {
+  const date_to_check = new Date("Nov 2, 2024 9:00");
+  const data = calendarData(date_to_check);
+  expect(data).toMatchSnapshot();
 });

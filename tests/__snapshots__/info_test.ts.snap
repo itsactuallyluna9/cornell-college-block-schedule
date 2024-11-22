@@ -71,9 +71,9 @@ exports[`handles breaks in blocks 1`] = `
   },
   "day": null,
   "event": {
-    "end": 2024-11-29T15:00:00.000Z,
+    "end": 2024-11-30T06:00:00.000Z,
     "name": "Fall Break",
-    "start": 2024-11-25T15:00:00.000Z,
+    "start": 2024-11-25T06:00:00.000Z,
   },
   "is_weekend": false,
   "school_year": "2024-2025",
@@ -96,6 +96,21 @@ exports[`handles breaks in blocks on return 1`] = `
 }
 `;
 
+exports[`handles breaks in blocks on return 2`] = `
+{
+  "block": {
+    "block": 4,
+    "end": 2024-12-18T18:00:00.000Z,
+    "start": 2024-11-18T15:00:00.000Z,
+  },
+  "day": 10,
+  "event": null,
+  "is_weekend": true,
+  "school_year": "2024-2025",
+  "week": 2,
+}
+`;
+
 exports[`handles pure breaks 1`] = `
 {
   "block": null,
@@ -108,5 +123,20 @@ exports[`handles pure breaks 1`] = `
   "is_weekend": false,
   "school_year": "2023-2024",
   "week": null,
+}
+`;
+
+exports[`handles weekends 1`] = `
+{
+  "block": {
+    "block": 3,
+    "end": 2024-11-13T18:00:00.000Z,
+    "start": 2024-10-21T14:00:00.000Z,
+  },
+  "day": 10,
+  "event": null,
+  "is_weekend": true,
+  "school_year": "2024-2025",
+  "week": 2,
 }
 `;

@@ -134,21 +134,31 @@ export function calendarData(for_date: Date): CalendarData {
   // skip weekends and events
   let day = 0;
   let week = 0;
+  let had_event = false;
   const current_date = new Date(block.start);
   while (current_date <= for_date) {
     const event = year_data.events.find((event) => {
       return current_date >= event.start && current_date < event.end;
     });
+    if (event) {
+      had_event = true;
+    }
     if (current_date.getDay() !== 0 && current_date.getDay() !== 6 && !event) {
       day++;
-      // if (day % 5 === 0) {
-      // 	week++
-      // }
     }
     if (current_date.getDay() === 1) {
       week++;
     }
     current_date.setDate(current_date.getDate() + 1);
+  }
+  if (had_event) {
+    day++;
+    // and recalculate the week...
+    week = Math.ceil(day / 5);
+    if (is_weekend) {
+      day--;
+      week--;
+    }
   }
   if (block.block < 1 || block.block > 8) {
     // we're in summer, but there's a block going on!
