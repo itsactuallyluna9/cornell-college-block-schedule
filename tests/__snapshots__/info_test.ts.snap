@@ -140,3 +140,22 @@ exports[`handles weekends 1`] = `
   "week": 2,
 }
 `;
+
+exports[`handles common afternoon 1`] = `
+{
+  "block": {
+    "block": 4,
+    "end": 2024-12-18T18:00:00.000Z,
+    "start": 2024-11-18T15:00:00.000Z,
+  },
+  "day": 8,
+  "event": {
+    "end": 2024-12-04T15:00:00.000Z,
+    "name": "Common Afternoon",
+    "start": 2024-12-04T12:00:00.000Z,
+  },
+  "is_weekend": false,
+  "school_year": "2024-2025",
+  "week": 2,
+}
+`;

@@ -2,19 +2,23 @@ import { loadCalendar } from "./calendar.ts";
 
 export type CalendarData = {
   is_weekend: boolean;
-  block: {
-    block: number;
-    start: Date;
-    end: Date;
-  } | null;
+  block: Block | null;
   day: number | null;
   week: number | null;
-  event: {
-    name: string;
-    start: Date;
-    end: Date;
-  } | null;
+  event: Event | null;
   school_year?: string;
+};
+
+type Block = {
+  block: number;
+  start: Date;
+  end: Date;
+};
+
+type Event = {
+  name: string;
+  start: Date;
+  end: Date;
 };
 
 export function calendarData(for_date: Date): CalendarData {
@@ -61,15 +65,19 @@ export function calendarData(for_date: Date): CalendarData {
     // so if we're not in a block, and we're not in an offically defined break, we're in block break!
     // block break starts on the last day of the last block we were in, and ends on the first day of the next block
     // to get the last block we were in, we need to find the most recent block that ended before the date we're checking
-    const last_block = year_data.blocks.reduce((prev, current) => {
-      if (current.end < for_date) {
-        return current;
-      }
-      return prev;
-    }, [] as any);
+    const last_block = year_data.blocks.reduce(
+      (prev, current) => {
+        if (current.end < for_date) {
+          return current;
+        }
+        return prev;
+      },
+      null as Block | null,
+    );
     if (!last_block) {
       throw new Error("Calendar data not found for date!");
     }
+
     // now we need to find the next block!
     const next_block =
       year_data.blocks[year_data.blocks.indexOf(last_block) + 1];
@@ -191,6 +199,39 @@ export function calendarData(for_date: Date): CalendarData {
       },
     };
   } else {
+    // we're in a block!
+
+    // handle common afternoon
+    // so far, it's only been implemented for 24-25 and 25-26
+    // 2nd wednesday of each block (day 8), 12p-3p
+    if (school_year === "2024-2025" || school_year === "2025-2026") {
+      if (day === 8 && for_date.getHours() >= 12 && for_date.getHours() < 15) {
+        return {
+          is_weekend,
+          block,
+          day,
+          week,
+          event: {
+            name: "Common Afternoon",
+            start: new Date(
+              for_date.getFullYear(),
+              for_date.getMonth(),
+              for_date.getDate(),
+              12,
+              0,
+            ),
+            end: new Date(
+              for_date.getFullYear(),
+              for_date.getMonth(),
+              for_date.getDate(),
+              15,
+              0,
+            ),
+          },
+          school_year,
+        };
+      }
+    }
     return {
       is_weekend,
       block,

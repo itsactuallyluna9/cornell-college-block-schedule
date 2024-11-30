@@ -61,3 +61,9 @@ test("handles weekends", () => {
   const data = calendarData(date_to_check);
   expect(data).toMatchSnapshot();
 });
+
+test("handles common afternoon", () => {
+  const date_to_check = new Date("Dec 4, 2024 13:00");
+  const data = calendarData(date_to_check);
+  expect(data).toMatchSnapshot();
+});
