@@ -1,26 +1,78 @@
 import { loadCalendar } from "./calendar.ts";
 
+/**
+ * Calendar data for a specific date
+ */
 export type CalendarData = {
+  /**
+   * Does the date fall on a weekend? (Saturday or Sunday)
+   */
   is_weekend: boolean;
   block: Block | null;
+  /**
+   * The day of the block the date falls in
+   * 
+   * null if the date is not in a block
+   */
   day: number | null;
+  /**
+   * The week of the block the date falls in
+   * 
+   * null if the date is not in a block
+   */
   week: number | null;
   event: Event | null;
+  /**
+   * The school year the date falls in
+   */
   school_year?: string;
 };
 
+/**
+ * A block, lasting 18 class days.
+ */
 type Block = {
+  /**
+   * The block number, typically 1-8, but can be 9+ for blocks over the summer.
+   */
   block: number;
+  /**
+   * The start date of the block.
+   */
   start: Date;
+  /**
+   * The end date of the block.
+   */
   end: Date;
 };
 
+/**
+ * The event the date falls in
+ * 
+ * Typically Fall Break, Winter Break, Spring Break, Commencement, or Common Afternoon
+ */
 type Event = {
+  /**
+   * The name of the event.
+   */
   name: string;
+  /**
+   * The start date of the block.
+   */
   start: Date;
+  /**
+   * The end date of the block.
+   */
   end: Date;
 };
 
+/**
+ * Get the calendar data for a specific date
+ * 
+ * @param for_date The date to get the calendar data for
+ * @returns The calendar data for the date
+ * @throws If the calendar data for the date is not found
+ */
 export function calendarData(for_date: Date): CalendarData {
   const calendar = loadCalendar();
   const school_year = Object.keys(calendar).find((year) => {

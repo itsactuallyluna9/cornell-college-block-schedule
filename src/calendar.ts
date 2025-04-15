@@ -19,6 +19,13 @@ export type Calendar = {
   };
 };
 
+/**
+ * Load the calendar data
+ * 
+ * Automatically converts dates to Date objects
+ * 
+ * @returns The calendar data
+ */
 export function loadCalendar() {
   const calendar = data as unknown as Calendar;
   // Convert dates to Date objects
